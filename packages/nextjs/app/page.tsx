@@ -38,37 +38,43 @@ export function Home() {
             initial={{ filter: "blur(10px)" }}
             animate={{ filter: "blur(0px)" }}
             transition={{ duration: 2 }}
-            className="text-white text-9xl font-bold mb-4"
+            className="text-white text-6xl sm:text-9xl font-bold mb-4"
           >
             Eventure
           </motion.h1>
-          <TypewriterEffect words={taglineWords} />
-          <div className="flex flex-row gap-4 mt-8">
-            <Button variant="outline">
-              <Link href="/eventReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                Event Registration
-              </Link>
-            </Button>
-            <Button variant="outline">
-              <Link href="/communityReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                Community Registration
-              </Link>
-            </Button>
-            <Button variant="outline">
-              <Link href="/profile" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                Profile
-              </Link>
-            </Button>
-            <Button variant="outline">
-              <Link href="/eventDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                Event Dashboard
-              </Link>
-            </Button>
-            <Button variant="outline">
-              <Link href="/communityDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
-                Community Dashboard
-              </Link>
-            </Button>
+          <div className="h-12 mb-8">
+            <TypewriterEffect words={taglineWords} />
+          </div>
+          <div className="flex flex-col gap-4 mt-8">
+            <div className="flex flex-row gap-4 justify-center flex-wrap">
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/eventReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Event Registration
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/communityReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Community Registration
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/profile" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Profile
+                </Link>
+              </Button>
+            </div>
+            <div className="flex flex-row gap-4 justify-center flex-wrap">
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/eventDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Event Dashboard
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/communityDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Community Dashboard
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </Vortex>
