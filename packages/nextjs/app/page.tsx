@@ -59,8 +59,16 @@ export function Home() {
                 Profile
               </Link>
             </Button>
-            <Button variant="outline">Event Dashboard</Button>
-            <Button variant="outline">Community Dashboard</Button>
+            <Button variant="outline">
+              <Link href="/eventDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Event Dashboard
+              </Link>
+            </Button>
+            <Button variant="outline">
+              <Link href="/communityDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Community Dashboard
+              </Link>
+            </Button>
           </div>
         </div>
       </Vortex>
