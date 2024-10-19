@@ -1,71 +1,85 @@
 "use client";
 
+import React, { useEffect, useState } from "react";
+import { TypewriterEffect } from "../components/ui/typewriter-effect";
+import { Vortex } from "../components/ui/vortex";
+import { motion } from "framer-motion";
+import { Button } from "../components/ui/button";
 import Link from "next/link";
-import type { NextPage } from "next";
-import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { Address } from "~~/components/scaffold-eth";
 
-const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
+export function Home() {
+  const [opacity, setOpacity] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setOpacity(1), 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const taglineWords = [
+    { text: "Unlock", className: "text-gray-300" },
+    { text: "your", className: "text-gray-300" },
+    { text: "event", className: "text-gray-300" },
+    { text: "experience", className: "text-gray-300" },
+    { text: "with", className: "text-gray-300" },
+    { text: "Eventure.", className: "text-gray-300" },
+  ];
 
   return (
-    <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
-          <h1 className="text-center">
-            <span className="block text-2xl mb-2">Welcome to</span>
-            <span className="block text-4xl font-bold">Scaffold-ETH 2</span>
-          </h1>
-          <div className="flex justify-center items-center space-x-2 flex-col sm:flex-row">
-            <p className="my-2 font-medium">Connected Address:</p>
-            <Address address={connectedAddress} />
+    <div className="w-full h-screen overflow-hidden relative flex flex-col justify-center items-center">
+      <Vortex
+        backgroundColor="black"
+        rangeY={800}
+        particleCount={500}
+        baseHue={120}
+        className="flex items-center flex-col justify-center w-full h-full"
+      >
+        <div className="text-center" style={{ opacity }}>
+          <motion.h1
+            initial={{ filter: "blur(10px)" }}
+            animate={{ filter: "blur(0px)" }}
+            transition={{ duration: 2 }}
+            className="text-white text-6xl sm:text-9xl font-bold mb-4"
+          >
+            Eventure
+          </motion.h1>
+          <div className="h-12 mb-8">
+            <TypewriterEffect words={taglineWords} />
           </div>
-          <p className="text-center text-lg">
-            Get started by editing{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/nextjs/app/page.tsx
-            </code>
-          </p>
-          <p className="text-center text-lg">
-            Edit your smart contract{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              YourContract.sol
-            </code>{" "}
-            in{" "}
-            <code className="italic bg-base-300 text-base font-bold max-w-full break-words break-all inline-block">
-              packages/hardhat/contracts
-            </code>
-          </p>
-        </div>
-
-        <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
-          <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <BugAntIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Tinker with your smart contract using the{" "}
-                <Link href="/debug" passHref className="link">
-                  Debug Contracts
-                </Link>{" "}
-                tab.
-              </p>
+          <div className="flex flex-col gap-4 mt-8">
+            <div className="flex flex-row gap-4 justify-center flex-wrap">
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/eventReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Event Registration
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/communityReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Community Registration
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/profile" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Profile
+                </Link>
+              </Button>
             </div>
-            <div className="flex flex-col bg-base-100 px-10 py-10 text-center items-center max-w-xs rounded-3xl">
-              <MagnifyingGlassIcon className="h-8 w-8 fill-secondary" />
-              <p>
-                Explore your local transactions with the{" "}
-                <Link href="/blockexplorer" passHref className="link">
-                  Block Explorer
-                </Link>{" "}
-                tab.
-              </p>
+            <div className="flex flex-row gap-4 justify-center flex-wrap">
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/eventDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Event Dashboard
+                </Link>
+              </Button>
+              <Button variant="outline" className="w-40 sm:w-auto">
+                <Link href="/communityDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                  Community Dashboard
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
-      </div>
-    </>
+      </Vortex>
+    </div>
   );
-};
+}
 
 export default Home;
