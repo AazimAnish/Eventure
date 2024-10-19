@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { TypewriterEffect } from "../components/ui/typewriter-effect";
 import { Vortex } from "../components/ui/vortex";
 import { motion } from "framer-motion";
+import { Button } from "../components/ui/button";
+import Link from "next/link";
 
 export function Home() {
   const [opacity, setOpacity] = useState(0);
@@ -23,7 +25,7 @@ export function Home() {
   ];
 
   return (
-    <div className="w-full h-screen overflow-hidden">
+    <div className="w-full h-screen overflow-hidden relative flex flex-col justify-center items-center">
       <Vortex
         backgroundColor="black"
         rangeY={800}
@@ -35,12 +37,27 @@ export function Home() {
           <motion.h1
             initial={{ filter: "blur(10px)" }}
             animate={{ filter: "blur(0px)" }}
-            transition={{ duration: 2 }} // Increased animation time
-            className="text-white text-9xl font-bold mb-4" // Increased font size
+            transition={{ duration: 2 }}
+            className="text-white text-9xl font-bold mb-4"
           >
             Eventure
           </motion.h1>
           <TypewriterEffect words={taglineWords} />
+          <div className="flex flex-row gap-4 mt-8">
+            <Button variant="outline">
+              <Link href="/eventReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Event Registration
+              </Link>
+            </Button>
+            <Button variant="outline">
+              <Link href="/communityReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Community Registration
+              </Link>
+            </Button>
+            <Button variant="outline">Profile</Button>
+            <Button variant="outline">Event Dashboard</Button>
+            <Button variant="outline">Community Dashboard</Button>
+          </div>
         </div>
       </Vortex>
     </div>
