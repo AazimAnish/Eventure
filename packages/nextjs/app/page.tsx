@@ -54,7 +54,11 @@ export function Home() {
                 Community Registration
               </Link>
             </Button>
-            <Button variant="outline">Profile</Button>
+            <Button variant="outline">
+              <Link href="/profile" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                Profile
+              </Link>
+            </Button>
             <Button variant="outline">Event Dashboard</Button>
             <Button variant="outline">Community Dashboard</Button>
           </div>
