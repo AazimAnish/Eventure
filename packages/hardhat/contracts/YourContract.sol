@@ -417,4 +417,80 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
         return string(buffer);
     }
     
+    function getAllCommunities() public view returns (
+        uint256[] memory,
+        string[] memory,
+        string[] memory,
+        string[] memory,
+        string[] memory,
+        string[] memory,
+        address[] memory,
+        uint256[] memory
+    ) {
+        uint256[] memory ids = new uint256[](communityCounter);
+        string[] memory names = new string[](communityCounter);
+        string[] memory descriptions = new string[](communityCounter);
+        string[] memory instagramHandles = new string[](communityCounter);
+        string[] memory linkedinHandles = new string[](communityCounter);
+        string[] memory twitterHandles = new string[](communityCounter);
+        address[] memory creatorAddresses = new address[](communityCounter);
+        uint256[] memory followerCounts = new uint256[](communityCounter);
+
+        for (uint256 i = 1; i <= communityCounter; i++) {
+            Community storage community = communities[i];
+            ids[i-1] = community.id;
+            names[i-1] = community.name;
+            descriptions[i-1] = community.description;
+            instagramHandles[i-1] = community.instagramHandle;
+            linkedinHandles[i-1] = community.linkedinHandle;
+            twitterHandles[i-1] = community.twitterHandle;
+            creatorAddresses[i-1] = community.creatorAddress;
+            followerCounts[i-1] = community.followerCount;
+        }
+
+        return (ids, names, descriptions, instagramHandles, linkedinHandles, twitterHandles, creatorAddresses, followerCounts);
+    }
+
+    function getAllEvents() public view returns (
+        uint256[] memory,
+        string[] memory,
+        string[] memory,
+        uint256[] memory,
+        uint256[] memory,
+        string[] memory,
+        uint256[] memory,
+        uint256[] memory,
+        uint256[] memory,
+        address[] memory,
+        uint256[] memory
+    ) {
+        uint256[] memory ids = new uint256[](eventCounter);
+        string[] memory names = new string[](eventCounter);
+        string[] memory descriptions = new string[](eventCounter);
+        uint256[] memory startTimes = new uint256[](eventCounter);
+        uint256[] memory endTimes = new uint256[](eventCounter);
+        string[] memory locations = new string[](eventCounter);
+        uint256[] memory capacities = new uint256[](eventCounter);
+        uint256[] memory availableSeats = new uint256[](eventCounter);
+        uint256[] memory ticketPrices = new uint256[](eventCounter);
+        address[] memory creatorAddresses = new address[](eventCounter);
+        uint256[] memory creatorCommunityIds = new uint256[](eventCounter);
+
+        for (uint256 i = 1; i <= eventCounter; i++) {
+            Event storage evt = events[i];
+            ids[i-1] = evt.id;
+            names[i-1] = evt.name;
+            descriptions[i-1] = evt.description;
+            startTimes[i-1] = evt.startTime;
+            endTimes[i-1] = evt.endTime;
+            locations[i-1] = evt.location;
+            capacities[i-1] = evt.capacity;
+            availableSeats[i-1] = evt.availableSeats;
+            ticketPrices[i-1] = evt.ticketPrice;
+            creatorAddresses[i-1] = evt.creatorAddress;
+            creatorCommunityIds[i-1] = evt.creatorCommunityId;
+        }
+
+        return (ids, names, descriptions, startTimes, endTimes, locations, capacities, availableSeats, ticketPrices, creatorAddresses, creatorCommunityIds);
+    }
 }
