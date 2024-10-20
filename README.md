@@ -1,82 +1,68 @@
-# 🏗 Scaffold-ETH 2
+Eventure 🎉
+===========
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+Eventure is a decentralized event management platform built on the Tezos L2 chain, Etherlink. It empowers users to seamlessly participate in events and enables communities to organize and showcase their activities with all data securely stored on-chain.
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+🚀 Features
+-----------
 
-⚙️ Built using NextJS, RainbowKit, Hardhat, Wagmi, Viem, and Typescript.
+-   **Event Discovery & Registration**: Browse and register for events with ease
+-   **NFT Tickets**: Receive unique, on-chain NFT tickets for registered events
+-   **Community Management**: Register your community and manage events effortlessly
+-   **Sponsorship Applications**: Apply for event sponsorships directly through the platform
+-   **Community Showcase**: Display your community's portfolio, including past and upcoming events
+-   **Event Dashboard**: Comprehensive view of event details and statistics
+-   **User Profiles**: Track your platform activity and event history
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+🛠️ Technologies Used
+---------------------
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+-   Next.js
+-   Shadcn
+-   Tailwind CSS
+-   Scaffold-ETH
+-   TypeScript
+-   Tezos (Etherlink L2)
 
-## Requirements
+💡 Why Tezos?
+-------------
 
-Before you begin, you need to install the following tools:
+Eventure is built on Tezos, specifically its L2 solution Etherlink, for several compelling reasons:
 
-- [Node (>= v18.18)](https://nodejs.org/en/download/)
-- Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
-- [Git](https://git-scm.com/downloads)
+1.  **Fast Transactions**: Tezos offers quick transaction finality
+2.  **Fair & Affordable**: Nearly free gas fees make it accessible for all users
+3.  **Solidity Compatibility**: Etherlink allows writing smart contracts in Solidity
+4.  **Tezos Features**: Leverages Tezos' underlying features without compromise
 
-## Quickstart
+🔒 Why On-Chain? Prioritizing User Data Security
+------------------------------------------------
 
-To get started with Scaffold-ETH 2, follow the steps below:
+Building Eventure on-chain is a strategic decision to enhance user data security and trust:
 
-1. Clone this repo & install dependencies
+1.  **Immutability**: On-chain data cannot be altered or deleted, ensuring the integrity of event records and user interactions.
+2.  **Transparency**: All transactions and data changes are visible on the blockchain, allowing for easy auditing and verification.
+3.  **Decentralization**: No single entity controls the data, reducing the risk of centralized data breaches.
+4.  **Self-Sovereignty**: Users have full control over their data and digital assets (like NFT tickets).
+5.  **Enhanced Privacy**: While transparent, blockchain technology allows for pseudonymous interactions, protecting user identities.
+6.  **Smart Contract Security**: Automated, trustless execution of event logic reduces the risk of fraud or manipulation.
+7.  **Interoperability**: On-chain data can easily integrate with other blockchain-based services, expanding the ecosystem.
 
-```
-git clone https://github.com/scaffold-eth/scaffold-eth-2.git
-cd scaffold-eth-2
-yarn install
-```
+By leveraging blockchain technology, Eventure ensures that user data and event information remain secure, tamper-proof, and under the control of the users themselves.
 
-2. Run a local network in the first terminal:
+🎯 Target Audience
+------------------
 
-```
-yarn chain
-```
+1.  **Event Attendees**: Regular event-goers looking for a streamlined experience
+2.  **Event Organizers**: Community managers seeking efficient event management solutions
 
-This command starts a local Ethereum network using Hardhat. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `hardhat.config.ts`.
+🏗️ Smart Contract Architecture
+-------------------------------
 
-3. On a second terminal, deploy the test contract:
+<img width="1195" alt="Screenshot 2024-10-19 at 3 21 08 PM" src="https://github.com/user-attachments/assets/cccd39c7-f8fb-475b-8d9b-4e3ea688b6d3">
 
-```
-yarn deploy
-```
+🎥 Project Walkthrough
+----------------------
 
-This command deploys a test smart contract to the local network. The contract is located in `packages/hardhat/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/hardhat/deploy` to deploy the contract to the network. You can also customize the deploy script.
+Check out our YouTube walkthrough of the Eventure project:
 
-4. On a third terminal, start your NextJS app:
-
-```
-yarn start
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-**What's next**:
-
-- Edit your smart contract `YourContract.sol` in `packages/hardhat/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/hardhat/deploy`
-- Edit your smart contract test in: `packages/hardhat/test`. To run test use `yarn hardhat:test`
-- You can add your Alchemy API Key in `scaffold.config.ts` if you want more reliability in your RPC requests.
-
-## Documentation
-
-Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
-
-To know more about its features, check out our [website](https://scaffoldeth.io).
-
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+[Project Walkthrough](https://www.youtube.com/watch?v=R2NxZLuy_-M)
