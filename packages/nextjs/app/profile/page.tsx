@@ -7,7 +7,7 @@ import { Label } from "../../components/ui/label"
 import { Table, TableHeader, TableCell, TableRow, TableBody } from "../../components/ui/table"
 import { useScaffoldReadContract } from "~~/hooks/scaffold-eth"
 import { useAccount } from "wagmi"
-import { formatEther } from "viem"
+import { formatEther, Address } from "viem"
 
 // Custom List component in shadcn style
 const List = ({ children, className, ...props }: React.HTMLAttributes<HTMLUListElement>) => {
@@ -32,7 +32,7 @@ export default function Profile() {
   const { data: userActivity, refetch } = useScaffoldReadContract({
     contractName: "YourContract",
     functionName: "getUserActivity",
-    args: [address],
+    args: [address as Address],
   });
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function Profile() {
               <TableCell>Amount Funded</TableCell>
             </TableHeader>
             <TableBody>
-              {fundedEvents.map((event, index) => (
+              {fundedEvents.map((_event: bigint, index: number) => (
                 <TableRow key={index}>
                   <TableCell>{fundedEventNames[index]}</TableCell>
                   <TableCell>{formatEther(fundedAmounts[index])} ETH</TableCell>
@@ -92,7 +92,7 @@ export default function Profile() {
         <div className="space-y-2">
           <Label htmlFor="joinedCommunity">Joined Community</Label>
           <List>
-            {joinedCommunityNames.map((community, index) => (
+            {joinedCommunityNames.map((community: string, index: number) => (
               <ListItem key={index}>{community}</ListItem>
             ))}
           </List>
@@ -116,7 +116,7 @@ export default function Profile() {
         <div className="space-y-2">
           <Label htmlFor="userCreatedEvents">User Created Events</Label>
           <List>
-            {createdEventNames.map((event, index) => (
+            {createdEventNames.map((event: string, index: number) => (
               <ListItem key={index}>{event}</ListItem>
             ))}
           </List>

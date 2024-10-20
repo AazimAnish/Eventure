@@ -41,8 +41,8 @@ export default function CreateEventForm() {
 
   useEffect(() => {
     if (communitiesData) {
-      const [ids, names] = communitiesData
-      const formattedCommunities = ids.map((id, index) => ({
+      const [ids, names] = communitiesData as [bigint[], string[]]
+      const formattedCommunities = ids.map((id: bigint, index: number) => ({
         id: id.toString(),
         name: names[index]
       }))
