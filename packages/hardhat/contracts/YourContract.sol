@@ -4,8 +4,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 
-
-
 contract YourContract is ERC721URIStorage {
      struct Counter {
         uint256 _value;
@@ -60,7 +58,17 @@ contract YourContract is ERC721URIStorage {
         uint256 ticketPrice;
         address creatorAddress;
         uint256 creatorCommunityId;  
-        uint256[] bountyIds;  
+        string bountyTitle;
+        string bountyDescription;
+        uint256 bountyAmount;
+        uint256 totalSponsored;
+        Sponsor[] sponsors;
+    }
+
+    struct Sponsor {
+        address userAddress;
+        uint256 communityId;
+        uint256 amountSponsored;
     }
 
     struct Bounty {
@@ -137,7 +145,10 @@ contract YourContract is ERC721URIStorage {
     string memory _location,
     uint256 _capacity,
     uint256 _ticketPrice,
-    string memory _creatorCommunityName
+    string memory _creatorCommunityName,
+    string memory _bountyTitle,
+    string memory _bountyDescription,
+    uint256 _bountyAmount
 ) public returns (uint256) {
     uint256 communityId = communityNameToId[_creatorCommunityName];
     require(communityId != 0, "Community does not exist");
@@ -158,6 +169,10 @@ contract YourContract is ERC721URIStorage {
     newEvent.ticketPrice = _ticketPrice;
     newEvent.creatorAddress = msg.sender;
     newEvent.creatorCommunityId = communityId;
+    newEvent.bountyTitle = _bountyTitle;
+    newEvent.bountyDescription = _bountyDescription;
+    newEvent.bountyAmount = _bountyAmount * 1 ether; // Convert to wei
+    newEvent.totalSponsored = 0;
 
     // Add the event ID to the community's events array
     communities[communityId].eventIds.push(newEventId);
@@ -166,6 +181,7 @@ contract YourContract is ERC721URIStorage {
 
     return newEventId;
 }
+
 function getCommunityDetails(uint256 _communityId) public view returns (
         uint256 id,
         string memory name,
@@ -204,7 +220,10 @@ function getCommunityDetails(uint256 _communityId) public view returns (
         uint256 ticketPrice,
         address creatorAddress,
         uint256 creatorCommunityId,
-        uint256[] memory bountyIds
+        string memory bountyTitle,
+        string memory bountyDescription,
+        uint256 bountyAmount,
+        Sponsor[] memory sponsors
     ) {
         require(_eventId != 0 && _eventId <= eventCounter, "Invalid event ID");
         Event storage evt = events[_eventId];
@@ -221,7 +240,10 @@ function getCommunityDetails(uint256 _communityId) public view returns (
             evt.ticketPrice,
             evt.creatorAddress,
             evt.creatorCommunityId,
-            evt.bountyIds
+            evt.bountyTitle,
+            evt.bountyDescription,
+            evt.bountyAmount,
+            evt.sponsors
         );
     }
 
@@ -307,10 +329,11 @@ function substring(string memory str, uint256 startIndex, uint256 endIndex) inte
     newBounty.sponsoredAmount = 0;
     newBounty.numberOfSponsoringCommunities = 0;
 
-   
-    events[_eventId].bountyIds.push(bountyCounter);
-
+    events[_eventId].bountyTitle = _title;
+    events[_eventId].bountyDescription = _description;
+    events[_eventId].bountyAmount = _totalRequiredAmount;
 }
+
 function getBountyDetails(uint256 _bountyId) public view returns (
     string memory title,
     string memory description,
@@ -334,16 +357,31 @@ function getBountyDetails(uint256 _bountyId) public view returns (
     );
 }
 
-    function payBounty(uint256 _bountyId, uint256 _amount) public payable {
-        Bounty storage bounty = bounties[_bountyId];
-        require(msg.value == _amount, "Incorrect amount sent");
-        require(bounty.sponsoredAmount + _amount <= bounty.totalRequiredAmount, "Exceeds required amount");
+    function payBounty(uint256 _eventId) public payable {
+        Event storage evt = events[_eventId];
+        require(msg.value > 0, "Amount must be greater than 0");
+        require(evt.bountyAmount > 0, "No bounty for this event");
 
-        bounty.sponsoredAmount += _amount;
-        bounty.numberOfSponsoringCommunities++;
+        require(evt.totalSponsored + msg.value <= evt.bountyAmount, "Exceeds required amount");
 
-        users[msg.sender].fundedEvents.push(_bountyId);
-        users[msg.sender].amountFunded[_bountyId] = _amount;
+        uint256 userCommunityId = 0;
+        for (uint256 i = 0; i < users[msg.sender].joinedCommunities.length; i++) {
+            if (communities[users[msg.sender].joinedCommunities[i]].followers[msg.sender]) {
+                userCommunityId = users[msg.sender].joinedCommunities[i];
+                break;
+            }
+        }
+
+        evt.sponsors.push(Sponsor({
+            userAddress: msg.sender,
+            communityId: userCommunityId,
+            amountSponsored: msg.value
+        }));
+
+        evt.totalSponsored += msg.value;
+
+        users[msg.sender].fundedEvents.push(_eventId);
+        users[msg.sender].amountFunded[_eventId] += msg.value;
     }
 
    function generateNFT(uint256 _eventId) public payable returns (uint256) {
@@ -462,6 +500,9 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
         uint256[] memory,
         uint256[] memory,
         address[] memory,
+        uint256[] memory,
+        string[] memory,
+        string[] memory,
         uint256[] memory
     ) {
         uint256[] memory ids = new uint256[](eventCounter);
@@ -475,6 +516,9 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
         uint256[] memory ticketPrices = new uint256[](eventCounter);
         address[] memory creatorAddresses = new address[](eventCounter);
         uint256[] memory creatorCommunityIds = new uint256[](eventCounter);
+        string[] memory bountyTitles = new string[](eventCounter);
+        string[] memory bountyDescriptions = new string[](eventCounter);
+        uint256[] memory bountyAmounts = new uint256[](eventCounter);
 
         for (uint256 i = 1; i <= eventCounter; i++) {
             Event storage evt = events[i];
@@ -489,8 +533,11 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
             ticketPrices[i-1] = evt.ticketPrice;
             creatorAddresses[i-1] = evt.creatorAddress;
             creatorCommunityIds[i-1] = evt.creatorCommunityId;
+            bountyTitles[i-1] = evt.bountyTitle;
+            bountyDescriptions[i-1] = evt.bountyDescription;
+            bountyAmounts[i-1] = evt.bountyAmount;
         }
 
-        return (ids, names, descriptions, startTimes, endTimes, locations, capacities, availableSeats, ticketPrices, creatorAddresses, creatorCommunityIds);
+        return (ids, names, descriptions, startTimes, endTimes, locations, capacities, availableSeats, ticketPrices, creatorAddresses, creatorCommunityIds, bountyTitles, bountyDescriptions, bountyAmounts);
     }
 }

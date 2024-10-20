@@ -13,6 +13,7 @@ import { CalendarIcon } from "@radix-ui/react-icons"
 import { Calendar } from "../../components/ui/calendar"
 import { Popover, PopoverContent, PopoverTrigger } from "../../components/ui/popover"
 import { cn } from "../../lib/utils"
+import { Separator } from "../../components/ui/separator"
 
 export default function CreateEventForm() {
   const [formData, setFormData] = useState({
@@ -23,7 +24,10 @@ export default function CreateEventForm() {
     location: "",
     capacity: "",
     ticketPrice: "",
-    creatorCommunityName: ""
+    creatorCommunityName: "",
+    bountyTitle: "",
+    bountyDescription: "",
+    bountyAmount: ""
   })
 
   const { writeContractAsync: writeYourContractAsync } = useScaffoldWriteContract("YourContract")
@@ -76,7 +80,10 @@ export default function CreateEventForm() {
           formData.location,
           BigInt(formData.capacity),
           BigInt(formData.ticketPrice),
-          formData.creatorCommunityName
+          formData.creatorCommunityName,
+          formData.bountyTitle,
+          formData.bountyDescription,
+          BigInt(formData.bountyAmount)
         ],
       })
       console.log("Event registered successfully!")
@@ -184,6 +191,24 @@ export default function CreateEventForm() {
             <div className="space-y-2">
               <Label htmlFor="capacity">Accommodation Capacity</Label>
               <Input id="capacity" type="number" placeholder="Enter capacity" required value={formData.capacity} onChange={handleInputChange} />
+            </div>
+          </div>
+
+          <Separator className="my-4" />
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Bounty Details</h3>
+            <div className="space-y-2">
+              <Label htmlFor="bountyTitle">Bounty Title</Label>
+              <Input id="bountyTitle" placeholder="Enter bounty title" required value={formData.bountyTitle} onChange={handleInputChange} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="bountyDescription">Bounty Description</Label>
+              <Textarea id="bountyDescription" placeholder="Enter bounty description" required value={formData.bountyDescription} onChange={handleInputChange} />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="bountyAmount">Bounty Amount</Label>
+              <Input id="bountyAmount" type="number" placeholder="Enter bounty amount" required value={formData.bountyAmount} onChange={handleInputChange} />
             </div>
           </div>
 

@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     YourContract: {
-      address: "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",
+      address: "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6",
       abi: [
         {
           inputs: [],
@@ -520,6 +520,26 @@ const deployedContracts = {
               name: "creatorCommunityId",
               type: "uint256",
             },
+            {
+              internalType: "string",
+              name: "bountyTitle",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "bountyDescription",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "bountyAmount",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "totalSponsored",
+              type: "uint256",
+            },
           ],
           stateMutability: "view",
           type: "function",
@@ -657,6 +677,21 @@ const deployedContracts = {
               internalType: "address[]",
               name: "",
               type: "address[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "",
+              type: "uint256[]",
+            },
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
+            },
+            {
+              internalType: "string[]",
+              name: "",
+              type: "string[]",
             },
             {
               internalType: "uint256[]",
@@ -860,9 +895,41 @@ const deployedContracts = {
               type: "uint256",
             },
             {
-              internalType: "uint256[]",
-              name: "bountyIds",
-              type: "uint256[]",
+              internalType: "string",
+              name: "bountyTitle",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "bountyDescription",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "bountyAmount",
+              type: "uint256",
+            },
+            {
+              components: [
+                {
+                  internalType: "address",
+                  name: "userAddress",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "communityId",
+                  type: "uint256",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amountSponsored",
+                  type: "uint256",
+                },
+              ],
+              internalType: "struct YourContract.Sponsor[]",
+              name: "sponsors",
+              type: "tuple[]",
             },
           ],
           stateMutability: "view",
@@ -928,12 +995,7 @@ const deployedContracts = {
           inputs: [
             {
               internalType: "uint256",
-              name: "_bountyId",
-              type: "uint256",
-            },
-            {
-              internalType: "uint256",
-              name: "_amount",
+              name: "_eventId",
               type: "uint256",
             },
           ],
@@ -1022,6 +1084,21 @@ const deployedContracts = {
               internalType: "string",
               name: "_creatorCommunityName",
               type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_bountyTitle",
+              type: "string",
+            },
+            {
+              internalType: "string",
+              name: "_bountyDescription",
+              type: "string",
+            },
+            {
+              internalType: "uint256",
+              name: "_bountyAmount",
+              type: "uint256",
             },
           ],
           name: "registerEvent",
