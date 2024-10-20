@@ -7,7 +7,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const deployedContracts = {
   31337: {
     YourContract: {
-      address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
+      address: "0x0DCd1Bf9A1b36cE34237eEaFef220932846BCD82",
       abi: [
         {
           inputs: [],
@@ -945,6 +945,55 @@ const deployedContracts = {
               internalType: "struct YourContract.Sponsor[]",
               name: "sponsors",
               type: "tuple[]",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "userAddress",
+              type: "address",
+            },
+          ],
+          name: "getUserActivity",
+          outputs: [
+            {
+              internalType: "uint256[]",
+              name: "fundedEvents",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "joinedCommunities",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "createdEvents",
+              type: "uint256[]",
+            },
+            {
+              internalType: "uint256[]",
+              name: "fundedAmounts",
+              type: "uint256[]",
+            },
+            {
+              internalType: "string[]",
+              name: "fundedEventNames",
+              type: "string[]",
+            },
+            {
+              internalType: "string[]",
+              name: "joinedCommunityNames",
+              type: "string[]",
+            },
+            {
+              internalType: "string[]",
+              name: "createdEventNames",
+              type: "string[]",
             },
           ],
           stateMutability: "view",

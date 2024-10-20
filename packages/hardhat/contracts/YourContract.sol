@@ -557,4 +557,41 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
 
         return (ids, names, descriptions, startTimes, endTimes, locations, capacities, availableSeats, ticketPrices, creatorAddresses, creatorCommunityIds, bountyTitles, bountyDescriptions, bountyAmounts);
     }
+
+	function getUserActivity(address userAddress) public view returns (
+    uint256[] memory fundedEvents,
+    uint256[] memory joinedCommunities,
+    uint256[] memory createdEvents,
+    uint256[] memory fundedAmounts,
+    string[] memory fundedEventNames,
+    string[] memory joinedCommunityNames,
+    string[] memory createdEventNames
+) {
+    User storage user = users[userAddress];
+    
+    fundedEvents = user.fundedEvents;
+    joinedCommunities = user.joinedCommunities;
+    createdEvents = user.createdEvents;
+    
+    fundedAmounts = new uint256[](fundedEvents.length);
+    fundedEventNames = new string[](fundedEvents.length);
+    joinedCommunityNames = new string[](joinedCommunities.length);
+    createdEventNames = new string[](createdEvents.length);
+    
+    for (uint256 i = 0; i < fundedEvents.length; i++) {
+        fundedAmounts[i] = user.amountFunded[fundedEvents[i]];
+        fundedEventNames[i] = events[fundedEvents[i]].name;
+    }
+    
+    for (uint256 i = 0; i < joinedCommunities.length; i++) {
+        joinedCommunityNames[i] = communities[joinedCommunities[i]].name;
+    }
+    
+    for (uint256 i = 0; i < createdEvents.length; i++) {
+        createdEventNames[i] = events[createdEvents[i]].name;
+    }
+    
+    return (fundedEvents, joinedCommunities, createdEvents, fundedAmounts, fundedEventNames, joinedCommunityNames, createdEventNames);
+}
+
 }

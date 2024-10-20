@@ -1,10 +1,13 @@
 "use client"
 
-import React from "react"
+import React, { useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
 import { Input } from "../../components/ui/input"
 import { Label } from "../../components/ui/label"
 import { Table, TableHeader, TableCell, TableRow, TableBody } from "../../components/ui/table"
+import { useScaffoldReadContract } from "~~/hooks/scaffold-eth"
+import { useAccount } from "wagmi"
+import { formatEther } from "viem"
 
 // Custom List component in shadcn style
 const List = ({ children, className, ...props }: React.HTMLAttributes<HTMLUListElement>) => {
@@ -24,26 +27,38 @@ const ListItem = ({ children, className, ...props }: React.HTMLAttributes<HTMLLI
 }
 
 export default function Profile() {
-  // Demo data
-  const userData = {
-    walletAddress: "0x1234...5678",
-    fundedEvents: [
-      { event: "Event 1", amount: 100 },
-      { event: "Event 2", amount: 200 },
-      { event: "Event 3", amount: 300 },
-    ],
-    joinedCommunity: ["Community 1", "Community 2", "Community 3"],
-    ticketOwned: [
-      { event: "Summer Music Festival", time: "2024-07-15 14:00", location: "Central Park, NY" },
-      { event: "Tech Conference 2024", time: "2024-09-20 09:00", location: "Convention Center, SF" },
-      { event: "Art Exhibition", time: "2024-11-05 11:00", location: "Modern Art Museum, LA" },
-    ],
-    userCreatedEvents: [
-      { event: "Event 1", date: "2024-01-01" },
-      { event: "Event 2", date: "2024-01-15" },
-      { event: "Event 3", date: "2024-02-01" },
-    ],
-  };
+  const { address } = useAccount();
+
+  const { data: userActivity, refetch } = useScaffoldReadContract({
+    contractName: "YourContract",
+    functionName: "getUserActivity",
+    args: [address],
+  });
+
+  useEffect(() => {
+    refetch();
+  }, [address, refetch]);
+
+  if (!userActivity) {
+    return <div>Loading...</div>;
+  }
+
+  const [
+    fundedEvents,
+    joinedCommunities,
+    createdEvents,
+    fundedAmounts,
+    fundedEventNames,
+    joinedCommunityNames,
+    createdEventNames
+  ] = userActivity;
+
+  // Demo data for ticket owned (as requested, not edited)
+  const ticketOwned = [
+    { event: "Summer Music Festival", time: "2024-07-15 14:00", location: "Central Park, NY" },
+    { event: "Tech Conference 2024", time: "2024-09-20 09:00", location: "Convention Center, SF" },
+    { event: "Art Exhibition", time: "2024-11-05 11:00", location: "Modern Art Museum, LA" },
+  ];
 
   return (
     <Card className="w-full max-w-2xl mx-auto my-8">
@@ -53,7 +68,7 @@ export default function Profile() {
       <CardContent className="space-y-6">
         <div className="space-y-2">
           <Label htmlFor="walletAddress">Wallet Address</Label>
-          <Input id="walletAddress" defaultValue={userData.walletAddress} disabled />
+          <Input id="walletAddress" defaultValue={address} disabled />
         </div>
 
         <div className="space-y-2">
@@ -64,10 +79,10 @@ export default function Profile() {
               <TableCell>Amount Funded</TableCell>
             </TableHeader>
             <TableBody>
-              {userData.fundedEvents.map((event, index) => (
+              {fundedEvents.map((event, index) => (
                 <TableRow key={index}>
-                  <TableCell>{event.event}</TableCell>
-                  <TableCell>${event.amount}</TableCell>
+                  <TableCell>{fundedEventNames[index]}</TableCell>
+                  <TableCell>{formatEther(fundedAmounts[index])} ETH</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -77,7 +92,7 @@ export default function Profile() {
         <div className="space-y-2">
           <Label htmlFor="joinedCommunity">Joined Community</Label>
           <List>
-            {userData.joinedCommunity.map((community, index) => (
+            {joinedCommunityNames.map((community, index) => (
               <ListItem key={index}>{community}</ListItem>
             ))}
           </List>
@@ -86,7 +101,7 @@ export default function Profile() {
         <div className="space-y-2">
           <Label htmlFor="ticketOwned">Ticket Owned</Label>
           <div className="space-y-4">
-            {userData.ticketOwned.map((ticket, index) => (
+            {ticketOwned.map((ticket, index) => (
               <Card key={index} className="p-4">
                 <CardContent className="space-y-2 p-0">
                   <div className="font-semibold">{ticket.event}</div>
@@ -101,8 +116,8 @@ export default function Profile() {
         <div className="space-y-2">
           <Label htmlFor="userCreatedEvents">User Created Events</Label>
           <List>
-            {userData.userCreatedEvents.map((event, index) => (
-              <ListItem key={index}>{event.event} ({event.date})</ListItem>
+            {createdEventNames.map((event, index) => (
+              <ListItem key={index}>{event}</ListItem>
             ))}
           </List>
         </div>
