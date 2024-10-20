@@ -1,7 +1,7 @@
-import { cn } from "../../lib/utils";
 import React, { useEffect, useRef } from "react";
-import { createNoise3D } from "simplex-noise";
+import { cn } from "../../lib/utils";
 import { motion } from "framer-motion";
+import { createNoise3D } from "simplex-noise";
 
 interface VortexProps {
   children?: any;
@@ -51,8 +51,7 @@ export const Vortex = (props: VortexProps) => {
     let hm = 0.5 * m;
     return Math.abs(((t + hm) % m) - hm) / hm;
   };
-  const lerp = (n1: number, n2: number, speed: number): number =>
-    (1 - speed) * n1 + speed * n2;
+  const lerp = (n1: number, n2: number, speed: number): number => (1 - speed) * n1 + speed * n2;
 
   const setup = () => {
     const canvas = canvasRef.current;
@@ -167,7 +166,7 @@ export const Vortex = (props: VortexProps) => {
     ttl: number,
     radius: number,
     hue: number,
-    ctx: CanvasRenderingContext2D
+    ctx: CanvasRenderingContext2D,
   ) => {
     ctx.save();
     ctx.lineCap = "round";
@@ -185,10 +184,7 @@ export const Vortex = (props: VortexProps) => {
     return x > canvas.width || x < 0 || y > canvas.height || y < 0;
   };
 
-  const resize = (
-    canvas: HTMLCanvasElement,
-    ctx?: CanvasRenderingContext2D
-  ) => {
+  const resize = (canvas: HTMLCanvasElement, ctx?: CanvasRenderingContext2D) => {
     const { innerWidth, innerHeight } = window;
 
     canvas.width = innerWidth;
@@ -198,10 +194,7 @@ export const Vortex = (props: VortexProps) => {
     center[1] = 0.5 * canvas.height;
   };
 
-  const renderGlow = (
-    canvas: HTMLCanvasElement,
-    ctx: CanvasRenderingContext2D
-  ) => {
+  const renderGlow = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
     ctx.save();
     ctx.filter = "blur(8px) brightness(200%)";
     ctx.globalCompositeOperation = "lighter";
@@ -215,10 +208,7 @@ export const Vortex = (props: VortexProps) => {
     ctx.restore();
   };
 
-  const renderToScreen = (
-    canvas: HTMLCanvasElement,
-    ctx: CanvasRenderingContext2D
-  ) => {
+  const renderToScreen = (canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D) => {
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     ctx.drawImage(canvas, 0, 0);
@@ -247,9 +237,7 @@ export const Vortex = (props: VortexProps) => {
         <canvas ref={canvasRef}></canvas>
       </motion.div>
 
-      <div className={cn("relative z-10", props.className)}>
-        {props.children}
-      </div>
+      <div className={cn("relative z-10", props.className)}>{props.children}</div>
     </div>
   );
 };

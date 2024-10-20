@@ -17,7 +17,13 @@ describe("YourContract", function () {
 
   describe("Community Registration", function () {
     it("Should register a new community", async function () {
-      await yourContract.registerCommunity("Test Community", "Test Description", "test_insta", "test_linkedin", "test_twitter");
+      await yourContract.registerCommunity(
+        "Test Community",
+        "Test Description",
+        "test_insta",
+        "test_linkedin",
+        "test_twitter",
+      );
       const communityDetails = await yourContract.getCommunityDetails(1);
       expect(communityDetails.name).to.equal("Test Community");
       expect(communityDetails.description).to.equal("Test Description");
@@ -27,8 +33,9 @@ describe("YourContract", function () {
     });
 
     it("Should not allow registering a community with an existing name", async function () {
-      await expect(yourContract.registerCommunity("Test Community", "Another Description", "insta", "linkedin", "twitter"))
-        .to.be.revertedWith("Community name already exists");
+      await expect(
+        yourContract.registerCommunity("Test Community", "Another Description", "insta", "linkedin", "twitter"),
+      ).to.be.revertedWith("Community name already exists");
     });
   });
 
@@ -40,8 +47,7 @@ describe("YourContract", function () {
     });
 
     it("Should not allow a user to follow a community twice", async function () {
-      await expect(yourContract.connect(addr1).followCommunity(1))
-        .to.be.revertedWith("Already following");
+      await expect(yourContract.connect(addr1).followCommunity(1)).to.be.revertedWith("Already following");
     });
   });
 
@@ -55,7 +61,7 @@ describe("YourContract", function () {
         "Test Location",
         100,
         ethers.parseEther("0.1"),
-        "Test Community"
+        "Test Community",
       );
       const eventDetails = await yourContract.getEventDetails(1);
       expect(eventDetails.name).to.equal("Test Event");
@@ -66,16 +72,18 @@ describe("YourContract", function () {
     });
 
     it("Should not allow registering an event for a non-existent community", async function () {
-      await expect(yourContract.registerEvent(
-        "Invalid Event",
-        "Description",
-        "01/01/2024",
-        "02/01/2024",
-        "Location",
-        100,
-        ethers.parseEther("0.1"),
-        "Non-existent Community"
-      )).to.be.revertedWith("Community does not exist");
+      await expect(
+        yourContract.registerEvent(
+          "Invalid Event",
+          "Description",
+          "01/01/2024",
+          "02/01/2024",
+          "Location",
+          100,
+          ethers.parseEther("0.1"),
+          "Non-existent Community",
+        ),
+      ).to.be.revertedWith("Community does not exist");
     });
   });
 
@@ -86,7 +94,7 @@ describe("YourContract", function () {
         "Test Bounty",
         "Test Bounty Description",
         ethers.parseEther("1"),
-        "Test Community"
+        "Test Community",
       );
       const bountyDetails = await yourContract.getBountyDetails(1);
       expect(bountyDetails.title).to.equal("Test Bounty");
@@ -104,8 +112,9 @@ describe("YourContract", function () {
     });
 
     it("Should not allow paying more than the required amount", async function () {
-      await expect(yourContract.connect(addr2).payBounty(1, ethers.parseEther("1"), { value: ethers.parseEther("1") }))
-        .to.be.revertedWith("Exceeds required amount");
+      await expect(
+        yourContract.connect(addr2).payBounty(1, ethers.parseEther("1"), { value: ethers.parseEther("1") }),
+      ).to.be.revertedWith("Exceeds required amount");
     });
   });
 
@@ -119,8 +128,9 @@ describe("YourContract", function () {
 
     it("Should not allow generating a ticket with incorrect price", async function () {
       const incorrectPrice = ethers.parseEther("0.05");
-      await expect(yourContract.connect(addr2).generateNFT(1, { value: incorrectPrice }))
-        .to.be.revertedWith("Incorrect ticket price");
+      await expect(yourContract.connect(addr2).generateNFT(1, { value: incorrectPrice })).to.be.revertedWith(
+        "Incorrect ticket price",
+      );
     });
   });
 });

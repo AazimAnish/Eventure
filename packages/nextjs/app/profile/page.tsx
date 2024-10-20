@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import React, { useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
-import { Input } from "../../components/ui/input"
-import { Label } from "../../components/ui/label"
-import { Table, TableHeader, TableCell, TableRow, TableBody } from "../../components/ui/table"
-import { useScaffoldReadContract } from "~~/hooks/scaffold-eth"
-import { useAccount } from "wagmi"
-import { formatEther, Address } from "viem"
+import React, { useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card";
+import { Input } from "../../components/ui/input";
+import { Label } from "../../components/ui/label";
+import { Table, TableBody, TableCell, TableHeader, TableRow } from "../../components/ui/table";
+import { Address, formatEther } from "viem";
+import { useAccount } from "wagmi";
+import { useScaffoldReadContract } from "~~/hooks/scaffold-eth";
 
 // Custom List component in shadcn style
 const List = ({ children, className, ...props }: React.HTMLAttributes<HTMLUListElement>) => {
@@ -15,16 +15,16 @@ const List = ({ children, className, ...props }: React.HTMLAttributes<HTMLUListE
     <ul className={`space-y-1 ${className}`} {...props}>
       {children}
     </ul>
-  )
-}
+  );
+};
 
 const ListItem = ({ children, className, ...props }: React.HTMLAttributes<HTMLLIElement>) => {
   return (
     <li className={`text-sm ${className}`} {...props}>
       {children}
     </li>
-  )
-}
+  );
+};
 
 export default function Profile() {
   const { address } = useAccount();
@@ -50,7 +50,7 @@ export default function Profile() {
     fundedAmounts,
     fundedEventNames,
     joinedCommunityNames,
-    createdEventNames
+    createdEventNames,
   ] = userActivity;
 
   // Demo data for ticket owned (as requested, not edited)
@@ -123,5 +123,5 @@ export default function Profile() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

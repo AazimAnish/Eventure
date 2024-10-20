@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CardSpotlight } from "../../components/ui/card-spotlight";
 import { Button } from "../../components/ui/button";
+import { CardSpotlight } from "../../components/ui/card-spotlight";
 import {
   Dialog,
   DialogContent,
@@ -12,8 +12,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../../components/ui/dialog";
-import { Label } from "../../components/ui/label";
 import { GlareCard } from "../../components/ui/glare-card";
+import { Label } from "../../components/ui/label";
 import { useScaffoldReadContract, useScaffoldWriteContract } from "~~/hooks/scaffold-eth";
 
 interface Community {
@@ -34,7 +34,19 @@ interface Event {
   description: string;
 }
 
-type CommunityData = [bigint[], string[], string[], string[], string[], string[], string[], bigint[], bigint[][], string[][], string[][]];
+type CommunityData = [
+  bigint[],
+  string[],
+  string[],
+  string[],
+  string[],
+  string[],
+  string[],
+  bigint[],
+  bigint[][],
+  string[][],
+  string[][],
+];
 
 export default function CommunityDashboard() {
   const [communities, setCommunities] = useState<Community[]>([]);
@@ -45,8 +57,20 @@ export default function CommunityDashboard() {
 
   useEffect(() => {
     if (communityData) {
-      const [ids, names, descriptions, instagramHandles, linkedinHandles, twitterHandles, creatorAddresses, followerCounts, eventIds, eventNames, eventDescriptions] = communityData as CommunityData;
-      
+      const [
+        ids,
+        names,
+        descriptions,
+        instagramHandles,
+        linkedinHandles,
+        twitterHandles,
+        creatorAddresses,
+        followerCounts,
+        eventIds,
+        eventNames,
+        eventDescriptions,
+      ] = communityData as CommunityData;
+
       const formattedCommunities: Community[] = ids.map((id, index) => ({
         id: id.toString(),
         name: names[index],
@@ -75,7 +99,7 @@ export default function CommunityDashboard() {
     <div className="container mx-auto py-8">
       <h1 className="text-3xl font-bold mb-6">Community Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {communities.map((community) => (
+        {communities.map(community => (
           <CommunityCard key={community.id} community={community} />
         ))}
       </div>
@@ -130,24 +154,44 @@ function CommunityDetailsDialog({ community }: { community: Community }) {
         <div className="max-h-[60vh] overflow-y-auto">
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="instagram" className="text-right">Instagram</Label>
-              <p id="instagram" className="col-span-3">@{community.instagramHandle}</p>
+              <Label htmlFor="instagram" className="text-right">
+                Instagram
+              </Label>
+              <p id="instagram" className="col-span-3">
+                @{community.instagramHandle}
+              </p>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="linkedin" className="text-right">LinkedIn</Label>
-              <p id="linkedin" className="col-span-3">{community.linkedinHandle}</p>
+              <Label htmlFor="linkedin" className="text-right">
+                LinkedIn
+              </Label>
+              <p id="linkedin" className="col-span-3">
+                {community.linkedinHandle}
+              </p>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="twitter" className="text-right">Twitter</Label>
-              <p id="twitter" className="col-span-3">@{community.twitterHandle}</p>
+              <Label htmlFor="twitter" className="text-right">
+                Twitter
+              </Label>
+              <p id="twitter" className="col-span-3">
+                @{community.twitterHandle}
+              </p>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="creator" className="text-right">Creator</Label>
-              <p id="creator" className="col-span-3">{community.creatorAddress}</p>
+              <Label htmlFor="creator" className="text-right">
+                Creator
+              </Label>
+              <p id="creator" className="col-span-3">
+                {community.creatorAddress}
+              </p>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="followers" className="text-right">Followers</Label>
-              <p id="followers" className="col-span-3">{community.followerCount}</p>
+              <Label htmlFor="followers" className="text-right">
+                Followers
+              </Label>
+              <p id="followers" className="col-span-3">
+                {community.followerCount}
+              </p>
             </div>
           </div>
         </div>
@@ -174,7 +218,7 @@ function EventsDialog({ community }: { community: Community }) {
         </DialogHeader>
         <div className="max-h-[60vh] overflow-y-auto p-4">
           <div className="grid gap-4">
-            {community.events.map((event) => (
+            {community.events.map(event => (
               <EventCard key={event.id} event={event} />
             ))}
           </div>

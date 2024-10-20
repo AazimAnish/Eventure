@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { Button } from "../components/ui/button";
 import { TypewriterEffect } from "../components/ui/typewriter-effect";
 import { Vortex } from "../components/ui/vortex";
 import { motion } from "framer-motion";
-import { Button } from "../components/ui/button";
-import Link from "next/link";
 
-export function Home() {
+const Home = () => {
   const [opacity, setOpacity] = useState(0);
 
   useEffect(() => {
@@ -48,29 +48,44 @@ export function Home() {
           <div className="flex flex-col gap-4 mt-8">
             <div className="flex flex-row gap-4 justify-center flex-wrap">
               <Button variant="outline" className="w-40 sm:w-auto">
-                <Link href="/eventReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                <Link
+                  href="/eventReg"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                >
                   Event Registration
                 </Link>
               </Button>
               <Button variant="outline" className="w-40 sm:w-auto">
-                <Link href="/communityReg" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                <Link
+                  href="/communityReg"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                >
                   Community Registration
                 </Link>
               </Button>
               <Button variant="outline" className="w-40 sm:w-auto">
-                <Link href="/profile" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                <Link
+                  href="/profile"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                >
                   Profile
                 </Link>
               </Button>
             </div>
             <div className="flex flex-row gap-4 justify-center flex-wrap">
               <Button variant="outline" className="w-40 sm:w-auto">
-                <Link href="/eventDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                <Link
+                  href="/eventDash"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                >
                   Event Dashboard
                 </Link>
               </Button>
               <Button variant="outline" className="w-40 sm:w-auto">
-                <Link href="/communityDash" className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50">
+                <Link
+                  href="/communityDash"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
+                >
                   Community Dashboard
                 </Link>
               </Button>
@@ -80,6 +95,6 @@ export function Home() {
       </Vortex>
     </div>
   );
-}
+};
 
 export default Home;
