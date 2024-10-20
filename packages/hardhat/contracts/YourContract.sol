@@ -463,7 +463,10 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
         string[] memory,
         string[] memory,
         address[] memory,
-        uint256[] memory
+        uint256[] memory,
+        uint256[][] memory,
+        string[][] memory,
+        string[][] memory
     ) {
         uint256[] memory ids = new uint256[](communityCounter);
         string[] memory names = new string[](communityCounter);
@@ -473,6 +476,9 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
         string[] memory twitterHandles = new string[](communityCounter);
         address[] memory creatorAddresses = new address[](communityCounter);
         uint256[] memory followerCounts = new uint256[](communityCounter);
+        uint256[][] memory eventIds = new uint256[][](communityCounter);
+        string[][] memory eventNames = new string[][](communityCounter);
+        string[][] memory eventDescriptions = new string[][](communityCounter);
 
         for (uint256 i = 1; i <= communityCounter; i++) {
             Community storage community = communities[i];
@@ -484,9 +490,20 @@ function formatDate(uint256 timestamp) internal pure returns (string memory) {
             twitterHandles[i-1] = community.twitterHandle;
             creatorAddresses[i-1] = community.creatorAddress;
             followerCounts[i-1] = community.followerCount;
+            
+            uint256[] memory communityEventIds = community.eventIds;
+            eventIds[i-1] = communityEventIds;
+            eventNames[i-1] = new string[](communityEventIds.length);
+            eventDescriptions[i-1] = new string[](communityEventIds.length);
+            
+            for (uint256 j = 0; j < communityEventIds.length; j++) {
+                Event storage evt = events[communityEventIds[j]];
+                eventNames[i-1][j] = evt.name;
+                eventDescriptions[i-1][j] = evt.description;
+            }
         }
 
-        return (ids, names, descriptions, instagramHandles, linkedinHandles, twitterHandles, creatorAddresses, followerCounts);
+        return (ids, names, descriptions, instagramHandles, linkedinHandles, twitterHandles, creatorAddresses, followerCounts, eventIds, eventNames, eventDescriptions);
     }
 
     function getAllEvents() public view returns (
