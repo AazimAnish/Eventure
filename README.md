@@ -60,6 +60,9 @@ By leveraging blockchain technology, Eventure ensures that user data and event i
 
 <img width="1195" alt="Screenshot 2024-10-19 at 3 21 08 PM" src="https://github.com/user-attachments/assets/cccd39c7-f8fb-475b-8d9b-4e3ea688b6d3">
 
+- **Deployment Address**: `0x4142A20B69CBa2c2FB321fF6e5fbf92036901712`  
+- **Contract Link**: [Etherscan Contract](https://sepolia.etherscan.io/address/0x4142a20b69cba2c2fb321ff6e5fbf92036901712)
+
 🎥 Project Walkthrough
 ----------------------
 
