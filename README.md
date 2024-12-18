@@ -69,3 +69,14 @@ By leveraging blockchain technology, Eventure ensures that user data and event i
 Check out our YouTube walkthrough of the Eventure project:
 
 [Project Walkthrough](https://www.youtube.com/watch?v=R2NxZLuy_-M)
+
+
+🔋 Team Name and Details
+----------------------
+
+-   **Hackathon Name**: BuildOnChain24
+-   **Team Name**: TEAM NAME
+-   **Members**:
+    1.  Aazim Anish - Full Stack Web3 Developer
+    2.  Hafeefa PC - Full Stack Developer
+
